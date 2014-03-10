@@ -1,5 +1,4 @@
-FreeBT
-======
+![FreeBT Logo](docs/logo.gif)
 
 FreeBT is an open source Windows Bluetooth stack implemented by Antony C. Roberts http://www.freebt.net.
 

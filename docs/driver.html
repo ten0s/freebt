@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>FreeBT.net - Open Source Bluetooth stack for Windows</TITLE>
+
+<BODY>
+<FONT FACE=ARIAL>
+<TABLE CELLSPACING=10>
+<TD VALIGN=TOP>
+<CENTER>
+	<A HREF=http://www.freebt.net><IMG SRC=logo.gif BORDER=0></A>
+	<P>
+	<A HREF=#HW>Supported hardware</A>
+	<P>
+	<A HREF=#OS>Supported operating systems</A>
+	<P>
+	<A HREF=#INST>Installing the driver</A>
+	<P>
+	<A HREF=#REM>Removing associations to other drivers</A>
+	<P>
+	<A HREF=#COEX>Co-existance with other Bluetooth implementations</A>
+	<P>
+	<A HREF=#UPDT>Updating the driver</A>
+	<P>
+
+</CENTER>
+</TD>
+<TD>
+	<P>
+	<H1>Instructions for installing the FreeBT Generic Bluetooth USB Driver</H1>
+	<P>
+	This document describes how to install and uninstall the FreeBT Generic
+	Bluetooth USB Driver and other 3rd party drivers.
+	<P>
+	<H2><A NAME=HW>Supported hardware</A></H2>
+	<P>
+	The FreeBT USB Driver is written in accordance with the <A HREF=http://www.bluetooth.com>
+	Bluetooth USB HCI spec</A>. Any device that follows the recommendations set down in that
+	spec should be compatible with the FreeBT driver.
+	<P>
+	The <A HREF=../src/driver/fbtusb/fbtusb.inf>FreeBT .inf</A> will, by default, install
+	any USB dongle that identifies itself with Class 0xE0 (Wireless Controller), SubClass 0x01
+	(RF Controller) and Protocol 0x01 (Bluetooth programming), in accordance with the USB HCI
+	spec.
+	<P>
+	Specifically, FreeBT USB has been tested with the following devices:
+	<UL>
+		<LI>Acer BT-700 (Class 1 device)</LI>
+		<LI>D-Link DBT-120 (Class 2 device)</LI>
+		<LI>Any CSR or Silicon Wave-based USB devices</LI>
+
+	</UL>
+	Actually, both of these devices incorporate a CSR BlueCore01 chip, (as do most of the commercially
+	available Bluetooth dongles at present), which (apart from their amplifiers) makes them
+	identical.
+	<P>
+	A user has confirmed that the Alpha 2 release, in which the driver is slightly modified, works with
+	SiliconWave devices.
+	<P>
+	<B>If you would like to donate other USB hardware to the FreeBT cause, please
+	<A HREF=mailto:acroberts@freebt.net>contact</A> me.</B>
+	<P>
+	<H2><A NAME=OS>Supported operating systems</A></H2>
+	<P>
+	The current release has been tested entirely on Windows XP. I expect it to work equally well on Windows
+	2000 and while it should work on Windows 98 SE and Windows ME, I have not tested it at all and have
+	serious doubts about its worthiness on those platforms.
+	<P>
+	<H2><A NAME=INST>Installing the driver</A></H2>
+	<P>
+	In the unlikely event that you don't already have a Bluetooth USB driver installed for your
+	USB dongle, installing the FreeBT driver is quite simple. Insert the device, point Windows
+	at the src/driver/fbtusb directory and after you accept the warning about the driver
+	being unsigned, it will install automatically.
+	<P>
+	<H2><A NAME=REM>Removing associations to other drivers</A></H2>
+	<P>
+	You are much more likely to have a driver from another vendor, such as Widcomm, installed
+	on your system and while you don't need to remove that driver, you do need to persuade Windows
+	to forget the association of the USB dongle to the other vendor driver. The process is not
+	entirely straight forward and not something I would encourage the inexperienced to try.
+	<P>
+	To remove the reference to your existing driver, carry out the following steps:
+	<UL>
+		<LI>While the device is attached, locate it in the Device Manager, and delete it.</LI>
+		<P>
+		<LI>Under the registry key <CODE>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</CODE>,
+			you will find an entry that corresponds to your USB dongle. If you know the USB Vendor and
+			Product IDs of your device, you will easily be able to locate the device, because the
+			registry key that defines the device is built up from these values. For example, if the
+			device is using a CSR BlueCore01 and the manufacturer has chosen not to change the Vendor
+			and Product ID (as indeed most of them don't) the devices registry key will be
+			<CODE>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB\Vid_0a12&Pid_0001</CODE>
+			<P>
+			If you don't know the USB Vendor and Product IDs of your device, you will have to find
+			it by searching through all the USB keys. Typically the values DeviceDesc, LocationInformation,
+			Mfg and Service will give you a pretty good idea of what you are looking at.</LI>
+		<P>
+		<LI>Once you have located the key that represents your device, delete it. You may encounter
+			a permissions error when you attempt to do this, in which case you can simply change the
+			permissions for the key using RegEdit (right-click the key and select Permissions).</LI>
+		<P>
+		<LI>Reboot your machine and follow the procedure above for a clean install of the driver.</LI>
+
+	</UL>
+	Of course these steps apply equally well to the FreeBT driver itself, so you can carry out the same
+	procedure again to remove the FreeBT driver.
+	<P>
+	<H2><A NAME=COEX>Co-existance with other Bluetooth implementations</A></H2>
+	<P>
+	FreeBT can happily co-exist with other Bluetooth implementations, however the process is slightly
+	tricky and requires a certain amount of discipline. It involves using dedicated physical USB ports
+	for each seperate Bluetooth implementation, as well as temporarily modifying the .inf files supplied
+	with the other implementation.
+	<P>
+	A pertinent example might be FreeBT co-existing with Microsofts Bluetooth implementation, which is a
+	part of Windows XP Service Pack 2, although the following instructions will work with any Bluetooth
+	implementation:
+	<UL>
+		<LI>Make sure you have two SEPERATE PHYSICAL availabile USB ports, we'll refer to them as PORT1 and PORT2</LI>
+		<LI>Insert the USB device into PORT1 and install the associated (not FreeBT) software</LI>
+		<LI>Remove the USB device</LI>
+		<LI>Locate the driver inf file for the device. In the case of Microsofts Bluetooth implementation,
+			this is <CODE>%SystemRoot%\Inf\bth.inf</CODE>. Other instances of the file named <CODE>oem*.inf</CODE> may exist.</LI>
+		<LI>Comment out the lines that describe the USB device. These lines will have the format
+		<CODE>USB\Vid_<I>USB_VENDOR_ID</I>&Pid_<I>USB_PRODUCT_ID</I></CODE>. The following example shows the section
+		where CSR devices are defined in Microsofts <CODE>bth.inf</CODE>:<BR>
+		<BR>
+		<CODE>
+		[Cambridge.NT.5.1]<BR>
+		;Generic Bluetooth Radio=                         BthUsb, USB\Vid_0a12&Pid_0001<BR>
+		;CSR Nanosira=                                    BthUsb, USB\Vid_0a12&Pid_0003<BR>
+		;CSR Nanosira WHQL Reference Radio=               BthUsb, USB\Vid_0a12&Pid_0004<BR>
+		;CSR Nanosira-Multimedia=                         BthUsb, USB\Vid_0a12&Pid_0005<BR>
+		;CSR Nanosira-Multimedia WHQL Reference Radio=    BthUsb, USB\Vid_0a12&Pid_0006<BR>
+		<BR>
+		</CODE>
+		Lines are commented out by prefixing them with a semi-colon as the example shows.
+		<LI>Insert the USB dongle into PORT2 (NOT PORT1). Windows should fail to find a driver for the device.
+			Follow the instructions for installing the FreeBT driver, <A HREF=#INST>above</A>.</LI>
+		<LI>To use the MS stack, insert the device into PORT1. To use the FreeBT stack, insert the device into PORT2</LI>
+
+	</UL>
+	<P>
+	<H2><A NAME=UPDT>Updating the driver</A></H2>
+	<P>
+	If you have already installed the FreeBT USB driver and want to update it to the latest version, you can
+	do so quite easily by carying out the following procedure:
+	<UL>
+		<LI>Remove ALL USB Bluetooth hardware</LI>
+		<LI>Restart the computer</LI>
+		<LI>DO NOT start any programs which use the FreeBT libs or driver and DO NOT insert any Bluetooth hardware</LI>
+		<LI>Copy the new driver file (<CODE>fbtusb.sys</CODE>) into <CODE>%SystemRoot%\System32\drivers</CODE>,
+			overwriting the existing file</LI>
+	</UL>
+	<B>NOTE</B>: If the driver is busy, Windows will silently ignore your attempt to overwrite the driver
+	and it will appear as though the file was successfully overwritten. ALWAYS remember to remove all hardware
+	and stop any FreeBT programs!
+	<P>
+
+
+</TD>
+</FONT>
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: fbtusb - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+warning: unresolved Environment Variable  "$(DDKROOT)"
+Creating command line "rc.exe /l 0x409 /fo".\objchk\i386/fbtusb.res" /i "C:\WINDDK\2600.1106\inc\crt" /i "\private\ntos\inc" /i "..\..\include" /d "_DEBUG" /d "WMI_SUPPORT" /d "USB2" "H:\Antony\Work\bt\src\driver\fbtusb\fbtusb.rc"" 
+warning: unresolved Environment Variable  "$(DDKROOT)"
+warning: unresolved Environment Variable  "$(DDKROOT)"
+warning: unresolved Environment Variable  "$(DDKROOT)"
+warning: unresolved Environment Variable  "$(DDKROOT)"
+warning: unresolved Environment Variable  "$(DDKROOT)"
+warning: unresolved Environment Variable  "$(DDKROOT)"
+Creating temporary file "C:\DOCUME~1\acr\LOCALS~1\Temp\RSPCD.tmp" with contents
+[
+/nologo /Gz /ML /W3 /WX /Zi /Oi /Gy /I "." /I "C:\WINDDK\2600.1106\inc\wxp" /I "C:\WINDDK\2600.1106\inc\crt" /I "C:\WINDDK\2600.1106\inc\ddk\wxp" /I "C:\WINDDK\2600.1106\inc\ddk\wdm\wxp" /I "\private\ntos\inc" /I "..\..\include" /FI"warning.h" /D _X86_=1 /D i386=1 /D "STD_CALL" /D CONDITION_HANDLING=1 /D NT_UP=1 /D NT_INST=0 /D WIN32=100 /D _NT1X_=100 /D WINNT=1 /D _WIN32_WINNT=0x0400 /D WIN32_LEAN_AND_MEAN=1 /D DEVL=1 /D DBG=1 /D FPO=0 /D "WMI_SUPPORT" /D "USB2" /Fo".\objchk\i386/" /Fd".\objchk\i386\fbtusb.pdb" /Zel -cbstring /GF /c 
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtdev.c"
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtpnp.c"
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtpwr.c"
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtrwr.c"
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtusb.c"
+"H:\Antony\Work\bt\src\driver\fbtusb\fbtwmi.c"
+]
+Creating command line "cl.exe @C:\DOCUME~1\acr\LOCALS~1\Temp\RSPCD.tmp" 
+Creating temporary file "C:\DOCUME~1\acr\LOCALS~1\Temp\RSPCE.tmp" with contents
+[
+ntoskrnl.lib hal.lib wmilib.lib hidclass.lib usbd.lib ntoskrnl.lib /nologo /base:"0x10000" /version:5.0 /stack:0x40000,0x1000 /entry:"DriverEntry" /incremental:no /pdb:".\objchk\i386/fbtusb.pdb" /map:".\objchk\i386/fbtusb.map" /machine:IX86 /nodefaultlib /out:".\objchk\i386\fbtusb.sys" /libpath:"C:\WINDDK\2600.1106\lib\wxp\i386" /driver /IGNORE:4001,4037,4039,4065,4070,4078,4087,4089,4096,4210 /MERGE:_PAGE=PAGE /MERGE:_TEXT=.text /SECTION:INIT,d /MERGE:.rdata=.text /FULLBUILD /RELEASE /OPT:REF /OPT:ICF /align:0x80 /osversion:5.00 /subsystem:native,1.10 /debug:FULL 
+.\objchk\i386\fbtdev.obj
+.\objchk\i386\fbtpnp.obj
+.\objchk\i386\fbtpwr.obj
+.\objchk\i386\fbtrwr.obj
+.\objchk\i386\fbtusb.obj
+.\objchk\i386\fbtwmi.obj
+.\objchk\i386\fbtusb.res
+]
+Creating command line "link.exe @C:\DOCUME~1\acr\LOCALS~1\Temp\RSPCE.tmp"
+<h3>Output Window</h3>
+Compiling resources with DDK resource compiler...
+Compiling with DDK compiler...
+fbtdev.c
+warning: using obsolete header file usbioctl.h
+fbtpnp.c
+warning: using obsolete header file usbioctl.h
+fbtpwr.c
+warning: using obsolete header file usbioctl.h
+fbtrwr.c
+warning: using obsolete header file usbioctl.h
+fbtusb.c
+warning: using obsolete header file usbioctl.h
+fbtwmi.c
+warning: using obsolete header file usbioctl.h
+Generating Code...
+Linking with DDK linker...
+Creating temporary file "C:\DOCUME~1\acr\LOCALS~1\Temp\RSPD1.bat" with contents
+[
+@echo off
+C:\DEVELO~1\SOFTIC~1\SoftICE\nmsym.exe /translate:source,package,always .\objchk\i386\fbtusb.sys
+mapsym -o .\objchk\i386\fbtusb.sym .\objchk\i386\fbtusb.map
+]
+Creating command line "C:\DOCUME~1\acr\LOCALS~1\Temp\RSPD1.bat"
+Generating SoftICE Symbol file fbtusb.nms
+
+Compuware NM32 Symbol Translator/Loader version 4.3.0
+(C) Compuware Corporation, 1996-2003
+
+MODULE=.\objchk\i386\fbtusb.sys
+PROMPT=OFF
+Translation of H:\Antony\Work\bt\src\driver\fbtusb\objchk\i386\fbtusb.sys successfully completed
+Microsoft (R) Symbol File Generator NTGroup Version 6.02
+Copyright (C) Microsoft Corp 1984 - 1996.  All rights reserved.
+Line number support enabled
+Program entry point at 0000:0000
+
+
+
+<h3>Results</h3>
+fbtusb.sys - 0 error(s), 6 warning(s)
+</pre>
+</body>
+</html>

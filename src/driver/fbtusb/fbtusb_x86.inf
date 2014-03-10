@@ -1,0 +1,86 @@
+; Copyright (c) 2004, Antony C. Roberts
+
+; Use of this file is subject to the terms
+; described in the LICENSE.TXT file that
+; accompanies this file.
+;
+; Your use of this file indicates your
+; acceptance of the terms described in
+; LICENSE.TXT.
+;
+; http://www.freebt.net
+
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%MSFT%
+DriverVer=08/05/1999
+
+[SourceDisksNames]
+1="FreeBT Installation Disk",,,
+
+[SourceDisksFiles]
+fbtusb.sys = 1
+fbtusb.inf = 1
+
+[Manufacturer]
+%MfgName%=Microsoft
+
+[Microsoft]
+; Comment out the following line if you don't want the FreeBT driver to attach to every
+; Bluetooth class device
+%BTUSB.DeviceDesc%=FreeBT.Dev, USB\Class_e0&SubClass_01&Prot_01 ; Bluetooth class devices
+
+; If you want to attach to a specific device, add it's vendor and product id here
+; eg. CSR:
+;%BTUSB.DeviceDesc%=FreeBT.Dev, USB\VID_0a12&PID_0001 ; CSR USB
+
+;[PreCopySection]
+;HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+FreeBT.Files.Ext = 10,System32\Drivers
+FreeBT.Files.Inf = 10,INF
+
+[FreeBT.Dev]
+CopyFiles=FreeBT.Files.Ext, FreeBT.Files.Inf
+AddReg=FreeBT.AddReg
+
+[FreeBT.Dev.NT]
+CopyFiles=FreeBT.Files.Ext, FreeBT.Files.Inf
+AddReg=FreeBT.AddReg
+
+[FreeBT.Dev.NT.Services]
+Addservice = FreeBT, 0x00000002, FreeBT.AddService
+
+[FreeBT.AddService]
+DisplayName    = %FreeBT.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\fbtusb.sys
+LoadOrderGroup = Base
+
+[FreeBT.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,fbtusb.sys
+HKLM,"System\Currentcontrolset\Services\FreeBT\Parameters","MaximumTransferSize",0x10001,4096
+HKLM,"System\Currentcontrolset\Services\FreeBT\Parameters","DebugLevel",0x10001,2
+HKLM,"System\Currentcontrolset\services\FreeBT\Parameters","FreeBTEnable",0x10001,1
+
+[FreeBT.Files.Ext]
+fbtusb.sys
+
+[FreeBT.Files.Inf]
+fbtusb.Inf
+
+
+;---------------------------------------------------------------;
+
+[Strings]
+MSFT="Microsoft"
+MfgName="Various"
+BTUSB.DeviceDesc="FreeBT USB Driver"
+FreeBT.SvcDesc="FreeBT USB Driver"
+

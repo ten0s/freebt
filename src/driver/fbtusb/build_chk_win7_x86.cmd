@@ -1,0 +1,1 @@
+call build_xXX.cmd x86 chk win7

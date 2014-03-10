@@ -1,0 +1,30 @@
+TARGETNAME=fbtusb
+TARGETTYPE=DRIVER
+DDKROOT=$(_NTDRIVE)$(_NTROOT)
+
+C_DEFINES= $(C_DEFINES) -DWMI_SUPPORT -DUSB2
+
+TARGETPATH=obj
+
+INCLUDES=$(DDKROOT)\private\ntos\inc;      \
+         ..\..\include
+         
+
+NTTARGETFILE0=mofcomp
+
+USE_MAPSYM=1
+
+TARGETLIBS=$(DDK_LIB_PATH)\hidclass.lib \
+			$(DDK_LIB_PATH)\usbd.lib	\
+			$(DDK_LIB_PATH)\ntoskrnl.lib
+
+MSC_WARNING_LEVEL=/W3 /WX
+
+SOURCES= \
+	fbtusb.c \
+	fbtpnp.c \
+	fbtpwr.c \
+	fbtdev.c \
+	fbtwmi.c \
+	fbtrwr.c \
+	fbtusb.rc

@@ -1,0 +1,27 @@
+[Dynamic, Provider("WMIProv"),
+ WMI,
+ Description("FreeBT Generic USB driver"),
+ guid("{871B1A60-D3EA-4f2f-817B-465E44867BF5}"),
+ locale("MS\\0x409")]
+ 
+class FreeBTDeviceInformation
+{
+    [key, read]
+     string InstanceName;
+
+    [read] boolean Active;
+
+    [WmiDataId(1),
+     read,
+     write,
+     Description("The DebugPrintLevel property indicates the debug output level of the FreeBT device driver.")
+     ]
+    uint32 DebugPrintLevel;
+	
+    [WmiDataId(2),
+     read,
+     Description("ModelName")
+     ]
+    string ModelName;
+
+};

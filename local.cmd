@@ -1,0 +1,1 @@
+set DDK_ROOT=C:\WinDDK\7600.16385.0

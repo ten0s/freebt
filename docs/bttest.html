@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>FreeBT.net - Open Source Bluetooth stack for Windows</TITLE>
+
+<BODY>
+<FONT FACE=ARIAL>
+<TABLE CELLSPACING=10>
+<TR>
+<TD VALIGN=TOP>
+<CENTER>
+	<A HREF=http://www.freebt.net><IMG SRC=logo.gif BORDER=0></A>
+
+</CENTER>
+</TD>
+<TD>
+	<P>
+	<H1>BTTest - The FreeBT Test program</A></H1>
+	<P>
+	BTTest is an MFC application that demonstrates the use of the fbtlib library. The library
+	contains a high level, easy to use HCI abstration, which in turn uses the driver to access
+	the Bluetooth dongle.
+	<P>
+	<CENTER>
+		<IMG SRC=bttest.jpg>
+		<BR>
+		<I>The BTTest application</I>
+	</CENTER>
+	<H2>Functionality</H2>
+	The application represents the current state of the functionality provided by the driver and
+	the library, it provides the following functionality:
+	<P>
+	<UL>
+		<LI>Device Discovery</LI>
+		<LI>Name retrieval</LI>
+		<LI>Connection</LI>
+		<LI>Data transfer</LI>
+
+	</UL>
+	<H2>Using the program</H2>
+	A compiled debug executable can be found in the distribution under <CODE>src/test/BTTest/Debug</CODE>.
+	The program is called BTTest.exe.
+	<P>
+	When run, the first thing the program does is to attempt to open an instance of the driver, if it fails
+	to find an instance, it will report this in a message dialog and exit. Refer to the
+	<A HREF=driver.html>driver</A> documentation for a description of how to install the driver correctly.
+	<P>
+	Both the driver and the test program support multiple instances on a single PC, so if you have two dongles
+	attached to your computer, you will be able to run two instance of BTTest - it will automatically find the
+	next available instance.
+	<H2>Initialisation</H2>
+	Having found a hardware instance to attach to, BTTest proceeds to send a HCI_Reset (I have heard that some
+	older CSR firmware versions react to a HCI_Reset by doing a USB device reset - if you experience this problem
+	and indeed it prevents BTTest from working properly, you will need to upgrade your firmware). BTTest will
+	make the device discoverable, enable auto connection accept and set a reasonable connect timeout.
+	<P>
+	<H2>Finding devices</H2>
+	To perform a Device Discovery, press the Inquiry button. As Inquiry_Result events are received and processed
+	byt BTTest, it will add them to list box immediately to the left of the button.
+	<H2>Connecting to a device</H2>
+	To connect to a device, select in the list box and select Connect. A dialog will appear reporting whether or
+	not the connection was successful.
+	<H2>Sending data</H2>
+	Using two dongles (and either the same computer or two computers), you can use BTTest to send data over the
+	Bluetooth link. To do this, run two instances of BTTest and from one of them perform an Inquiry and then Connect
+	to the opposite device. Havind done this, highlight the device in the listbox, type in the data you want to sent
+	in the edit field at the bottom of the window and select Send. Your data will appear in the list box on the opposite
+	instance of BTTest, next to the devices entry.
+	<H2>Logging</H2>
+	You will notice that HCI Commands, Events and ACL Data In/Out are logged in the listbox towards the bottom of the
+	window. Additionally, a log file bttest.log is generated in the directory that BTTest is run from. The log
+	contains verbose information for BTTest and fbtlib. If you want to see log information from the driver, download
+	<A HREF=http://www.sysinternals.com/ntw2k/freeware/debugview.shtml>DebugView</A> from
+	<A HREF=http://www.sysinternals.com>SysInternals</A> - it will display the debug output from the driver (and any
+	other driver).
+
+
+</TD>
+</FONT>
+</BODY>
+</HTML>

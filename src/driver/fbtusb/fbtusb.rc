@@ -1,0 +1,24 @@
+#include <windows.h>
+
+#include <ntverp.h>
+
+#undef VER_COMPANYNAME_STR
+#undef VER_PRODUCTNAME_STR
+#undef VER_PRODUCTVERSION_STR
+
+#define VER_FILETYPE                VFT_DRV
+#define VER_FILESUBTYPE             VFT2_DRV_SYSTEM
+#define VER_FILEDESCRIPTION_STR     "FreeBT Generic USB Driver"
+#define VER_INTERNALNAME_STR        "fbtusb"
+#define VER_ORIGINALFILENAME_STR    "fbtusb.sys"
+#define VER_COMPANYNAME_STR			"FreeBT (www.freebt.net)"
+#define VER_LEGALCOPYRIGHT_STR		"Copyright (c) 2004. See www.freebt.net"
+#define VER_ORIGINALFILENAME_STR	"fbtusb.sys"
+#define VER_PRODUCTNAME_STR			"FreeBT (www.freebt.net)"
+#define VER_PRODUCTVERSION_STR		"0.1"
+#define VER_FILEVERSION				0,1
+
+#undef __BUILDMACHINE__
+#include "common.ver"
+
+MofResourceName MOFDATA fbtusb.bmf
